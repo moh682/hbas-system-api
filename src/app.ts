@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import { authenticate } from './authentication/AuthenticationService';
 import * as ENV from 'dotenv';
 import { DEV_URI } from './settings';
 import connect from './dbConnector';
@@ -14,19 +15,16 @@ import loginRouter from './routes/loginRouter';
 import invoiceRouter from './routes/invoiceRouter';
 // import userRouter from './routes/userRouter';
 
-import { authenticate } from './authentication/AuthenticationService';
 
 const app: Application = express();
 app.use(bodyParser.json());
 
 app.use(cors());
-// root access
+app.use('/auth', loginRouter);
+
+// authention needed
+app.use(authenticate);
 app.use('/', indexRouter);
-// unauthenticated permissions
-app.use('/login', loginRouter);
-
-// authenticated permissions
-app.use('/invoice', authenticate, invoiceRouter)
-
+app.use('/invoice', invoiceRouter)
 
 app.listen(env.PORT ? env.PORT : 8181, () => console.log(`Running on port: ${env.PORT ? env.PORT : 8181} `));

@@ -5,8 +5,7 @@ import { getUserByName, addUser } from '../db/userFacade'
 import * as dotenv from 'dotenv'
 let env: any = dotenv.config().parsed
 import logger from '../logger';
-import { secret } from '../settings';
-import { IUser, ICreateUserInput, IUserDatabaseOutput } from '../interfaces/IUser';
+import { ICreateUserInput, IUserDatabaseOutput } from '../interfaces/IUser';
 import { compare } from 'bcrypt';
 import UserModel from '../models/UserModel';
 
@@ -14,11 +13,11 @@ let authenticate = (request: Request, response: Response, next: NextFunction) =>
    let token: string | undefined;
    token = request.headers['hbas_authentication'] as string;
    if (!token) response.sendStatus(403);
+   console.log('inside authenticated, token: ', token);
    if ((typeof token) === 'string') {
       let obj: any;
       obj = jwtToken.verify(token as string, env.SECRET, (error: any, string: any) => {
          if (error) {
-            console.log(error);
             switch (error.message) {
                case 'invalid signature':
                   response.sendStatus(400);
@@ -42,12 +41,9 @@ const login = async (username: string, password: string): Promise<string | undef
    let token;
 
    user = await getUserByName(username).catch(err => { console.log(err); return err; });
-   console.log('user: ', user);
    if (user) {
       let correct: boolean = await comparePassword(password, user.password);
-      console.log('isCorrectPassword --> ', correct);
       if (correct) {
-         // todo: CREATE TOKEN
          token = await createToken({
             user: {
                email: user.email,

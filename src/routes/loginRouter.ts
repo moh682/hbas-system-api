@@ -1,10 +1,10 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { login, register } from '../authentication/AuthenticationService';
-import { IUser, ICreateUserInput } from '../interfaces/IUser';
+import { ICreateUserInput } from '../interfaces/IUser';
 import logger from '../logger';
 const router = express();
 
-router.post('/', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
    let { username, password } = req.body;
    let token: string | undefined;
    token = await login(username, password);
