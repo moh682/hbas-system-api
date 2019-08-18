@@ -1,6 +1,6 @@
 // import express, { Request, Response, NextFunction } from 'express';
-// import { getUserFromToken } from '../services/AuthenticationService';
-// import { addInvoiceToUser } from '../services/invoiceFacade';
+// // import { getUserFromToken } from '../authentication/AuthenticationService';
+// // import { addInvoiceToUser } from '../services/invoiceFacade';
 // import { IInvoice } from '../interfaces/IInvoice';
 // let router = express.Router();
 
@@ -15,7 +15,7 @@
 //    console.log('body ->', body);
 //    let invoice: IInvoice;
 //    let authToken: string = request.headers['hbas_authentication'] as string;
-//    let username = getUserFromToken(authToken);
+//    // let username = getUserFromToken(authToken);
 //    console.log(username);
 //    if (username !== "") {
 //       invoice = {

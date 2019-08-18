@@ -1,5 +1,4 @@
-# Logs
-logs
+
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -40,6 +39,12 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+
+# Build folder
+dist/
+
+# Logs
+logs
 
 # TypeScript v1 declaration files
 typings/
