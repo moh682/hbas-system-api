@@ -12,10 +12,8 @@ import AuthController from './controllers/AuthController';
 import AuthenticationService from './services/AuthenticationService';
 let authService = new AuthenticationService();
 
-
 let env: any;
 if (ENV.config().parsed) env = ENV.config().parsed;
-
 
 const app: Application = express();
 app.use(cors());

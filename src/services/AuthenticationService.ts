@@ -16,7 +16,7 @@ class AuthenticationService {
    constructor() { };
 
    public authenticate(request: Request, response: Response, next: NextFunction) {
-      let token: string | undefined;
+      let token: string;
       token = request.headers['hbas_authentication'] as string;
       if (!token) response.sendStatus(403);
       if ((typeof token) === 'string') {
