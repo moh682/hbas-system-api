@@ -1,16 +1,14 @@
 import express, { Application } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-// import { authenticate } from './authentication/AuthenticationService';
 import * as ENV from 'dotenv';
-import { DEV_URI } from './settings';
 import logger from './logger';
 
 import mysql from 'mysql';
 import dbConnector from './models/dbConnector';
 dbConnector.connect();
 
-import indexRouter from './controllers/indexRouter';
+import IndexController from './controllers/IndexController';
 // import loginRouter from './api/loginRouter';
 import AuthController from './controllers/AuthController';
 
@@ -28,7 +26,7 @@ app.use('/auth', AuthController);
 
 // authention needed
 // app.use(authenticate);
-app.use('/', indexRouter);
+app.use('/', IndexController);
 // app.use('/invoice', invoiceRouter)
 
 app.listen(env.PORT ? env.PORT : 8181, () => console.log(`Running on port: ${env.PORT ? env.PORT : 8181} `));

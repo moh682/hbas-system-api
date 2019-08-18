@@ -46,6 +46,9 @@ dist/
 # Logs
 logs
 
+# vscode Generated File
+.vscode
+
 # TypeScript v1 declaration files
 typings/
 
