@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import jwtToken from 'jsonwebtoken';
+import jwtToken, { decode } from 'jsonwebtoken';
 import UserMapper from '../models/dataMappers/Users.Mapper'
 import ErrorHandlers from './ErrorHandlers';
 import * as dotenv from 'dotenv'
@@ -130,13 +130,13 @@ class AuthenticationService {
    // //    // verify token in session
    // // }
 
-   // getUserFromToken(token: string) {
-   //    let payload: any = decode(token, { json: true });
-   //    if (payload && payload.user && payload.user.username) {
-   //       return payload.user.username;
-   //    }
-   //    return "";
-   // }
+   public getObjectFromToken(token: string) {
+      let payload: any = decode(token, { json: true });
+      if (payload) {
+         return payload;
+      }
+      return undefined;
+   }
 
 }
 
