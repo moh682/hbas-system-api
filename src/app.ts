@@ -9,10 +9,11 @@ dbConnector.connect();
 import IndexController from './controllers/IndexController';
 import AuthController from './controllers/AuthController';
 
+import AuthenticationService from './services/AuthenticationService';
+let authService = new AuthenticationService();
 
 let env: any;
 if (ENV.config().parsed) env = ENV.config().parsed;
-
 
 const app: Application = express();
 app.use(cors());
@@ -22,7 +23,7 @@ app.use(bodyParser.json());
 app.use('/auth', AuthController);
 
 // authention needed
-// app.use(authenticate);
+app.use(authService.authenticate);
 app.use('/', IndexController);
 // app.use('/invoice', invoiceRouter)
 

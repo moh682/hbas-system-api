@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import jwtToken from 'jsonwebtoken';
+import jwtToken, { decode } from 'jsonwebtoken';
 import UserMapper from '../models/dataMappers/Users.Mapper'
 import ErrorHandlers from './ErrorHandlers';
 import * as dotenv from 'dotenv'
@@ -16,7 +16,7 @@ class AuthenticationService {
    constructor() { };
 
    public authenticate(request: Request, response: Response, next: NextFunction) {
-      let token: string | undefined;
+      let token: string;
       token = request.headers['hbas_authentication'] as string;
       if (!token) response.sendStatus(403);
       if ((typeof token) === 'string') {
@@ -130,13 +130,13 @@ class AuthenticationService {
    // //    // verify token in session
    // // }
 
-   // getUserFromToken(token: string) {
-   //    let payload: any = decode(token, { json: true });
-   //    if (payload && payload.user && payload.user.username) {
-   //       return payload.user.username;
-   //    }
-   //    return "";
-   // }
+   public getObjectFromToken(token: string) {
+      let payload: any = decode(token, { json: true });
+      if (payload) {
+         return payload;
+      }
+      return undefined;
+   }
 
 }
 
