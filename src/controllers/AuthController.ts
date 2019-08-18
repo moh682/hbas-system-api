@@ -1,16 +1,17 @@
 import express, { Request, Response, NextFunction } from 'express';
 import AuthenticationService from '../services/AuthenticationService';
-// import { ICreateUserInput } from '../interfaces/IUser';
-// import logger from '../logger';
 import { IUser } from '../interfaces/IUser';
 const router = express();
 const autheService = new AuthenticationService();
 
 router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
-   let { username, password } = req.body;
+   let { email, password } = req.body;
+   let user: IUser = {
+      email, password
+   }
    let token: string | undefined;
-   // token = await authenticationService.login(username, password);
-   if (token !== undefined) {
+   token = await autheService.login(user).catch((error) => { return "" });
+   if (token !== undefined && token !== "") {
       res.json({ token });
    } else {
       res.sendStatus(404);

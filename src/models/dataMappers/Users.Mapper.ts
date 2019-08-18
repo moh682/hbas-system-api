@@ -94,16 +94,18 @@ export default class UserMapper {
          async function (resolve, reject) {
             let user;
             let sqlOptions: mysql.QueryOptions = {
-               sql: "SELECT 1 FROM users WHERE email=?;",
+               sql: "SELECT * FROM users WHERE email=?",
                values: [email]
             }
             try {
                await thisInstance.connection.query(sqlOptions,
                   function (error, result, fields) {
                      if (error) { console.log(error); reject(); }
-                     if (result !== null) {
-                        user = result;
+                     if (result && result.length !== 0) {
+                        user = result[0];
                         resolve(user);
+                     } else {
+                        resolve(undefined);
                      }
                   }
                )

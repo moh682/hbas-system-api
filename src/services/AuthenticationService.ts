@@ -44,18 +44,16 @@ class AuthenticationService {
    public login(user: IUser): Promise<string> {
       let password: string = user.password as string;
       let email: string = user.email as string;
-
       let thisInstace = this;
       return new Promise(
          async function (resolve, reject) {
             let user: IUser;
             let token: string = "";
-
-            user = await thisInstace.userMapper.getUserByEmail(email).catch(err => { console.log(err); return err; });
-            if (user) {
-               let correct: boolean = await thisInstace.comparePassword(password, user.password as string);
+            user = await thisInstace.userMapper.getUserByEmail(email).catch(err => { console.log(err); return undefined as unknown as IUser; });
+            if (user && user.email && user.password) {
+               let correct: boolean = await thisInstace.comparePassword(password, user.password as string).catch(error => false);
                if (correct) {
-                  token = await thisInstace.createToken({
+                  token = thisInstace.createToken({
                      user: {
                         email: user.email,
                         role: user.role
@@ -66,6 +64,8 @@ class AuthenticationService {
                   reject();
                }
                resolve(token);
+            } else {
+               resolve(token)
             }
          }
       )
