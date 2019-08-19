@@ -80,7 +80,6 @@ class AuthenticationService {
             if (!exist) {
                user.password = await thisInstace.encryptPassword(user.password as string).catch(() => { reject(); return undefined });
                let dbUser = await thisInstace.userMapper.addUser(user).catch((error) => { console.log(error); return undefined });
-               console.log(dbUser);
                if (dbUser) {
                   token = thisInstace.createToken({
                      email: dbUser.email,

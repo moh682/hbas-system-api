@@ -36,7 +36,6 @@ export default class UserMapper {
    }
 
    public addUser(user: IUser): Promise<IUser> {
-      console.log(user);
       let thisInstance = this;
       return new Promise(
          async function (resolve, reject) {
