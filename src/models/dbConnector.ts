@@ -24,11 +24,10 @@ class DbConnector {
 let connection = DbConnector.getConnection();
 
 connection.on('error', (error) => {
-   console.log(colors.red('Mysql Connection Error: '), error);
-})
-
-connection.on('connect', () => {
+   if (error) console.log(colors.red('Mysql Connection Error: '), error);
    console.log(colors.green('Mysql Connection have been established'));
-})
+
+
+});
 
 export default connection;
