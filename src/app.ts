@@ -1,10 +1,14 @@
 import express, { Application } from 'express';
 import cors from 'cors';
+import colors from 'colors';
 import bodyParser from 'body-parser';
 import * as ENV from 'dotenv';
 
 import dbConnector from './models/dbConnector';
-dbConnector.connect();
+dbConnector.connect((error) => {
+   if (error) console.log('Mysql Connection Error: '.red, error);
+   console.log(colors.green('Mysql Connection have been established'));
+});
 
 import IndexController from './controllers/IndexController';
 import AuthController from './controllers/AuthController';

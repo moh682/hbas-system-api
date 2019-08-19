@@ -19,12 +19,13 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
 });
 
 router.post('/register', async (req: Request, res: Response, next: NextFunction) => {
+   console.log('helo');
    let { password, email } = req.body;
    let user: IUser = {
       password, email
    }
    let token: string = "";
-   token = await autheService.register(user).catch((error) => { console.log(error); return "" });
+   token = await autheService.register(user).catch((error) => { console.log('error: ', error); return "" });
    if (token && token !== "") {
       res.json(token);
    } else {
