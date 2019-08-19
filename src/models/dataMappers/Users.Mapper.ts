@@ -36,16 +36,17 @@ export default class UserMapper {
    }
 
    public addUser(user: IUser): Promise<IUser> {
+      console.log(user);
       let thisInstance = this;
       return new Promise(
-         function (resolve, reject) {
+         async function (resolve, reject) {
             user.role = user.role ? user.role : "user";
             let sqlOptions: mysql.QueryOptions = {
                sql: "INSERT INTO users (password, email, role) VALUES (?, ?, ?)",
                values: [user.password, user.email, user.role]
             };
             try {
-               thisInstance.connection.query(sqlOptions,
+               await thisInstance.connection.query(sqlOptions,
                   function (error, result, fields) {
                      if (error) {
                         ErrorHandler.mySqlQueryErrorHandler(error.name, __filename, error);
@@ -66,7 +67,7 @@ export default class UserMapper {
       return new Promise(
          async function (resolve, reject) {
             let sqlOptions: mysql.QueryOptions = {
-               sql: "SELECT 1 FROM users WHERE email=?",
+               sql: "SELECT * FROM users WHERE email=?",
                values: [email]
             }
             try {
