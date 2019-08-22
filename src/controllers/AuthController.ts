@@ -12,14 +12,13 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
    let token: string | undefined;
    token = await autheService.login(user).catch((error) => { return "" });
    if (token !== undefined && token !== "") {
-      res.json({ token });
+      res.json({ token, user: { email } });
    } else {
       res.sendStatus(404);
    }
 });
 
 router.post('/register', async (req: Request, res: Response, next: NextFunction) => {
-   console.log('helo');
    let { password, email } = req.body;
    let user: IUser = {
       password, email
@@ -27,7 +26,7 @@ router.post('/register', async (req: Request, res: Response, next: NextFunction)
    let token: string = "";
    token = await autheService.register(user).catch((error) => { console.log('error: ', error); return "" });
    if (token && token !== "") {
-      res.json(token);
+      res.json({ token, user: { email } });
    } else {
       res.sendStatus(400);
    }
