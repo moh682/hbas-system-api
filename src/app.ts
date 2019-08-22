@@ -1,5 +1,5 @@
 import express, { Application } from 'express';
-import cors from 'cors';
+import cors, { CorsOptions } from 'cors';
 import colors from 'colors';
 import bodyParser from 'body-parser';
 import * as ENV from 'dotenv';
@@ -19,8 +19,13 @@ let authService = new AuthenticationService();
 let env: any;
 if (ENV.config().parsed) env = ENV.config().parsed;
 
+let corsConfig = {
+   origin: ["http://localhost", "localhost", "localhost:3000", "http://localhost:3000"],
+   allowedHeaders: ["authToken", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Origin", "Content-Type"],
+   credentials: true
+} as CorsOptions
 const app: Application = express();
-app.use(cors());
+app.use(cors(corsConfig));
 
 app.use(bodyParser.json());
 
