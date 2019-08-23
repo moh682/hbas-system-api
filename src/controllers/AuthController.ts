@@ -4,22 +4,6 @@ import { IUser } from '../interfaces/IUser';
 const router = express();
 const autheService = new AuthenticationService();
 
-const ALLOWED_ORIGINS = [
-   'http://localhost:3000',
-   'http://www.localhost:8000'
-]
-
-router.use((req: Request, res: Response, next: NextFunction) => {
-   if (ALLOWED_ORIGINS.indexOf(req.headers.origin as string) > -1) {
-      res.set('Access-Control-Allow-Credentials', 'true')
-      res.set('Access-Control-Allow-Origin', req.headers["access-control-allow-origin"])
-      next();
-   } else {
-      res.set('Access-Control-Allow-Credentials', '*')
-      next()
-   }
-})
-
 router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
    let { email, password } = req.body;
    let user: IUser = {
