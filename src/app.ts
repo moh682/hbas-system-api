@@ -19,13 +19,14 @@ let authService = new AuthenticationService();
 let env: any;
 if (ENV.config().parsed) env = ENV.config().parsed;
 
-let corsConfig = {
-   origin: ["http://localhost", "localhost", "localhost:3000", "http://localhost:3000"],
-   allowedHeaders: ["authToken", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Origin", "Content-Type"],
-   credentials: true
-} as CorsOptions
+// let corsConfig = {
+//    origin: ["http://localhost", "localhost", "localhost:3000", "http://localhost:3000"],
+//    allowedHeaders: ["authToken", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Origin", "Content-Type"],
+//    credentials: true
+// } as CorsOptions
 const app: Application = express();
-app.use(cors(corsConfig));
+// app.use(cors(corsConfig));
+app.use(cors());
 
 app.use(bodyParser.json());
 
