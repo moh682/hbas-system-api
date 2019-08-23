@@ -1,4 +1,4 @@
-import express, { Application } from 'express';
+import express, { Application, NextFunction, Response, Request } from 'express';
 import cors, { CorsOptions } from 'cors';
 import colors from 'colors';
 import bodyParser from 'body-parser';
@@ -26,6 +26,23 @@ if (ENV.config().parsed) env = ENV.config().parsed;
 // } as CorsOptions
 const app: Application = express();
 // app.use(cors(corsConfig));
+const ALLOWED_ORIGINS = [
+   'http://localhost:3000/',
+   'http://www.localhost:8000/'
+]
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+   console.log(req.headers);
+   if (ALLOWED_ORIGINS.indexOf(req.headers.origin as string) > -1) {
+      res.set('Access-Control-Allow-Credentials', 'true')
+      res.set('Access-Control-Allow-Origin', req.headers["access-control-allow-origin"])
+      next();
+   } else {
+      res.set('Access-Control-Allow-Credentials', 'true')
+      next()
+   }
+})
+
 app.use(cors());
 
 app.use(bodyParser.json());
