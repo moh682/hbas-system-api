@@ -28,22 +28,19 @@ const app: Application = express();
 // app.use(cors(corsConfig));
 const ALLOWED_ORIGINS = [
    'http://localhost:3000/',
-   'http://www.localhost:8000/'
+   'http://www.localhost:8000/',
+   'localhost:3000'
 ]
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-   console.log(req.headers);
-   if (ALLOWED_ORIGINS.indexOf(req.headers.origin as string) > -1) {
-      res.set('Access-Control-Allow-Credentials', 'true')
-      res.set('Access-Control-Allow-Origin', req.headers["access-control-allow-origin"])
-      next();
-   } else {
-      res.set('Access-Control-Allow-Credentials', 'true')
-      next()
-   }
-})
+const corsConfig = {
+   origin: "*", // ! SET TO APPROPRIATE ORIGIN WHEN SENT TO PRODUCTION 
+   allowedHeaders: ["Content-Type", "AuthToken", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "Access-Control-Allow-Methods"],
+   exposedHeaders: ["AuthToken"],
+   credentials: false,
+   methods: ["GET", "POST", "PUT", "DELETE"]
+} as CorsOptions
 
-app.use(cors());
+app.use(cors(corsConfig));
 
 app.use(bodyParser.json());
 
