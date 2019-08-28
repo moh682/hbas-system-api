@@ -24,6 +24,19 @@ class ErrorHandler {
       );
    };
 
+   public logDeleteAttempt(name: string, filename: string, error: any, email: string): void {
+      logger.log(
+         'info',
+         JSON.stringify({
+            errorName: name,
+            filename,
+            error,
+            msg: 'Failed Delete Attempt',
+            input: email
+         })
+      );
+   }
+
 }
 
 let ExceptionHandler = new ErrorHandler();
