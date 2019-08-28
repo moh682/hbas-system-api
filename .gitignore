@@ -44,7 +44,7 @@ node_modules/
 jspm_packages/
 
 # Build folder
-dist/
+dist
 
 # Logs
 logs
