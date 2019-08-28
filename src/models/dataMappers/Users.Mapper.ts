@@ -5,8 +5,8 @@ import ErrorHandler from '../../services/ErrorHandlers';
 
 export default class UserMapper {
    private connection: mysql.Connection;
-   constructor() {
-      this.connection = dbConnector;
+   constructor(database?: any) {
+      this.connection = database ? database : dbConnector;
    }
 
    public async getAllUSers(): Promise<IUser[]> {
@@ -30,6 +30,38 @@ export default class UserMapper {
                )
             } catch (exception) {
                ErrorHandler.mySqlQueryErrorHandler(exception.name, __filename, exception);
+            }
+         }
+      )
+   }
+
+   public deleteUser(email: string): Promise<boolean> {
+      let thisInstance = this;
+      return new Promise(
+         async function (resolve, reject) {
+            let sqlOptions: mysql.QueryOptions = {
+               sql: "DELETE FROM users WHERE email=?",
+               values: [email]
+            };
+            let doesExist = await thisInstance.UserExist(email);
+            if (doesExist) {
+               try {
+                  await thisInstance.connection.query(sqlOptions,
+                     function (error, result, fields) {
+                        if (error) {
+                           ErrorHandler.logDeleteAttempt(error.name, __filename, error, email);
+                           reject();
+                        } else {
+                           resolve(true);
+                        }
+                     }
+                  )
+               } catch (exception) {
+                  ErrorHandler.mySqlQueryErrorHandler('DeleteUser', __filename, exception);
+                  reject();
+               }
+            } else {
+               resolve(false);
             }
          }
       )
