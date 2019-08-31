@@ -5,6 +5,8 @@ directories:
    - "node_modules"
 services:
    - mysql
+cache:
+   - "node_modules"
 before_script:
    - mysql -u root -e "CREATE USER 'test'@'localhost' IDENTIFIED BY '..test2019!'"
    - mysql -u root -e 'CREATE DATABASE backend;'
