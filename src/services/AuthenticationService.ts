@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwtToken, { decode } from 'jsonwebtoken';
-import UserMapper from '../models/dataMappers/Users.Mapper'
+import AccountMapper from '../models/dataMappers/Account.Mapper'
 import ErrorHandlers from './ErrorHandlers';
 import * as dotenv from 'dotenv'
 let env: any = dotenv.config().parsed
@@ -11,7 +11,7 @@ import bcrypt from 'bcrypt';
 
 class AuthenticationService {
 
-   private userMapper = new UserMapper();
+   private userMapper = new AccountMapper();
 
    constructor() { };
 
@@ -49,7 +49,7 @@ class AuthenticationService {
          async function (resolve, reject) {
             let user: IUser;
             let token: string = "";
-            user = await thisInstace.userMapper.getUserByEmail(email).catch(err => { console.log(err); return undefined as unknown as IUser; });
+            user = await thisInstace.userMapper.getAccountByEmail(email).catch(err => { console.log(err); return undefined as unknown as IUser; });
             if (user && user.email && user.password) {
                let correct: boolean = await thisInstace.comparePassword(password, user.password as string).catch(error => false);
                if (correct) {
@@ -76,19 +76,30 @@ class AuthenticationService {
       return new Promise(
          async function (resolve, reject) {
             let token: string = "";
-            let exist: boolean = await thisInstace.userMapper.UserExist(user.email as string);
+            let exist: boolean = await thisInstace.userMapper.accountExist(user.email as string);
             if (!exist) {
                user.password = await thisInstace.encryptPassword(user.password as string).catch(() => { reject(); return undefined });
-               let dbUser = await thisInstace.userMapper.addUser(user).catch((error) => { console.log(error); return undefined });
-               if (dbUser) {
+               let dbAccount = await thisInstace.userMapper.addAccount(user).catch((error) => { console.log(error); return undefined });
+               if (dbAccount) {
                   token = thisInstace.createToken({
-                     email: dbUser.email,
+                     email: dbAccount.email,
                   });
                }
             }
             resolve(token);
          }
       )
+   }
+
+   public deleteAccount = (email: string): Promise<boolean> => {
+      let thisInstace = this;
+      return new Promise(
+         async function (resolve, reject) {
+            let confirmed: boolean = await thisInstace.userMapper.deleteAccount(email).catch((error) => { reject(error); return false });
+            if (confirmed) {
+               resolve(true);
+            } resolve(false);
+         })
    }
 
    private createToken = (content: any): string => {
@@ -106,13 +117,11 @@ class AuthenticationService {
                if (err) return logger.error(err)
                bcrypt.hash(password, salt, (error, hash) => {
                   if (error) { console.log(error); reject() }
-
                   resolve(hash);
                });
             });
          }
       )
-
    }
 
    private comparePassword = async (userPassword: string, dbPassword: string): Promise<boolean> => {
@@ -126,7 +135,7 @@ class AuthenticationService {
       });
    };
 
-   // //  verifyUser = async (token: string) => {
+   // //  verifyAccount = async (token: string) => {
    // //    // verify token in session
    // // }
 
