@@ -4,3 +4,8 @@ node_js:
 cache:
 directories:
    - "node_modules"
+services:
+   - mysql
+
+before_install:
+   - mysql -e 'CREATE DATABASE backend;'
