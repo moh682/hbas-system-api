@@ -16,8 +16,8 @@ if (process.env.ENV === "TEST") {
       connectionLimit: 10,
       host: 'localhost',
       port: 3306,
-      user: 'test',
-      password: '..test2019!',
+      user: 'root',
+      password: '',
       database: 'backend'
    }
 }
