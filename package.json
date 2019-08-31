@@ -7,8 +7,10 @@
 		"start": "ENV='PRODUCTION' node dist/app.js --verbose",
 		"debug": "node --inspect dist/app.js",
 		"dev": "ENV='DEVELOPMENT' nodemon src/app.ts --verbose",
-		"build": "tsc -p ."
-   },
+		"build": "tsc -p .",
+		"test": "ENV='TEST' mocha -r ts-node/register test/{,dbMappers}/**.test.ts --exit; ",
+      "test:awesome": "ENV='TEST' mocha -r ts-node/register test/{,dbMappers}/**.test.ts --reporter mochawesome --exit; "
+	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
