@@ -9,3 +9,5 @@ services:
 
 before_install:
    - mysql -e 'CREATE DATABASE backend;'
+   - mysql -u root -e "CREATE USER 'test'@'localhost' IDENTIFIED BY '..test2019!'"
+   - mysql -u root -e "GRANT ALL ON backend.* TO 'test'@'localhost';" 
