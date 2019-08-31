@@ -8,6 +8,8 @@ lerna-debug.log*
 # Folders and files that needs to be ignored
 # dbConnector.ts
 
+mochawesome-report
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
