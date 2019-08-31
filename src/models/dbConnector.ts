@@ -8,7 +8,7 @@ if (process.env.ENV === "PRODUCTION") {
       port: 3306,
       user: 'prod',
       password: '..prod2019!',
-      database: 'backend'
+      database: 'production'
    }
 }
 if (process.env.ENV === "TEST") {
@@ -17,8 +17,8 @@ if (process.env.ENV === "TEST") {
       host: 'localhost',
       port: 3306,
       user: 'test',
-      password: '',
-      database: 'backend'
+      password: '..test2019!',
+      database: 'test'
    }
 }
 if (process.env.ENV === "DEVELOPMENT") {
@@ -28,7 +28,7 @@ if (process.env.ENV === "DEVELOPMENT") {
       port: 3306,
       user: 'dev',
       password: '..dev2019!',
-      database: 'backend'
+      database: 'development'
    }
 }
 
