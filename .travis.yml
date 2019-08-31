@@ -8,6 +8,7 @@ services:
 before_script:
    - mysql -u root -e "CREATE USER 'test'@'localhost' IDENTIFIED BY '..test2019!'"
    - mysql -u root -e 'CREATE DATABASE backend;'
+   - mysql -u root -e 'SHOW DATABASES'
    - mysql -u root -e "GRANT ALL ON backend.* TO 'test'@'localhost';" 
 env:
    - ENV: 'TEST'
