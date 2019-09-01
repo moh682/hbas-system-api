@@ -18,7 +18,7 @@ if (process.env.ENV === "TEST") {
       port: 3306,
       user: 'test',
       password: '',
-      database: 'test'
+      database: 'backend'
    }
 }
 if (process.env.ENV === "DEVELOPMENT") {

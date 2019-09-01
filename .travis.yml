@@ -13,8 +13,7 @@ before_script:
    - mysql -u root -e 'CREATE DATABASE test;'
    - mysql -u root -e 'SHOW DATABASES'
    - mysql -u root -e 'USE test'
-   - mysql -u root -e 'CREATE TABLE IF NOT EXISTS `test`.`users` ( `id` INT(11) NOT NULL AUTO_INCREMENT, `password` VARCHAR(255) NOT NULL, `email` VARCHAR(255) NOT NULL, `role` VARCHAR(45) NOT NULL DEFAULT 'user', PRIMARY KEY (`id`), UNIQUE INDEX `email_UNIQUE` (`email` ASC), UNIQUE INDEX `id_UNIQUE` (`id` ASC))'
-   - mysql -u root -e 
+   - mysql -u root < ./setup.sql
    - mysql -u root -e "GRANT ALL ON test.* TO 'test'@'localhost';" 
    - npm install
    - npm run test
