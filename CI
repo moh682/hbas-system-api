@@ -1,0 +1,52 @@
+# #!/bin/bash
+
+# # Before anything i need to do a couple things
+
+# # check for file to put test data in
+# # put test into the file 
+# # check if fails
+# # if fails return huge error with color
+# # if success shut down the production server
+# # setup the new production server
+
+# Red='\033[0;31m'
+# Blue='\033[0;34m'
+# Green='\033[0;32m'
+# Cyan='\033[0;36m'
+# NC='\033[0m'
+
+# ## check if repo exist else create it
+# if [ -e continuous_integration ]; then 
+#    cd continuous_integration;
+#    if [ -e test.txt ]; then
+#       cd ..;
+#    else
+#       touch test.txt;
+#    fi
+# else
+#    mkdir continuous_integration;
+#    cd continuous_integration;
+#    touch test.txt;
+#    cd ..;
+# fi
+
+# # Pull Current repo from github
+# git_output=$(git pull)
+# git_output >> ./continuous_integration/pull_history.txt
+# is_up_to_date=$false
+# if [ "$git_output" == "Already up to date." ]; then
+#    # printf "We are cool here"
+#    is_up_to_date=$true
+#    echo -e "${Blue} Everything is up to date. "
+# else
+#    # Run test
+#    echo -e "${Cyan} TESTING..."
+#    npm run test > continuous_integration/test.txt
+#    npm run test >> continuous_integration/test_history.txt
+#    if [ $(grep 'failing' continuous_integration/test.txt) != ""]; then
+#       echo -e "${Red} TEST FAILED"
+#    else 
+      
+# fi
+
+

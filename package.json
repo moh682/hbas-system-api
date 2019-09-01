@@ -8,7 +8,7 @@
 		"debug": "node --inspect dist/app.js",
 		"dev": "ENV='DEVELOPMENT' nodemon src/app.ts --verbose",
 		"build": "tsc -p .",
-		"test": "ENV='TEST' mocha -r ts-node/register test/{,dbMappers}/**.test.ts --exit; ",
+		"test": "ENV='TEST' ./node_modules/.bin/mocha -r ts-node/register test/{,dbMappers}/**.test.ts --exit; ",
       "test:awesome": "ENV='TEST' mocha -r ts-node/register test/{,dbMappers}/**.test.ts --reporter mochawesome --exit; "
 	},
 	"keywords": [],
