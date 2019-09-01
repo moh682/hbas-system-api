@@ -1,0 +1,18 @@
+language: node_js
+node_js: 
+   - "stable"
+directories:
+   - "node_modules"
+services:
+   - mysql
+cache:
+   - "node_modules"
+before_script:
+   - mysql -u root -e "CREATE USER 'test'@'localhost' IDENTIFIED BY ''"
+   - mysql -u root -e 'CREATE DATABASE backend;'
+   - mysql -u root -e 'SHOW DATABASES'
+   - mysql -u root -e "GRANT ALL ON backend.* TO 'test'@'localhost';" 
+   - mysql -u test -e 
+   - npm install
+env:
+   - ENV: 'TEST'
