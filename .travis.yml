@@ -14,5 +14,6 @@ before_script:
    - mysql -u root -e 'SHOW DATABASES'
    - mysql -u root -e "GRANT ALL ON test.* TO 'test'@'localhost';" 
    - npm install
+   - npm run test
 env:
    - ENV: 'TEST'
