@@ -17,7 +17,7 @@ if (process.env.ENV === "TEST") {
       host: 'localhost',
       port: 3306,
       user: 'test',
-      password: '..test2019!',
+      password: '',
       database: 'test'
    }
 }
